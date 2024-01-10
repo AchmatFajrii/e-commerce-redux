@@ -35,16 +35,24 @@ const ProductList = () => {
               return (
                 <div
                   key={product.id}
-                  className="bg-white rounded-lg border shadow p-4 w-full"
+                  className="bg-white rounded-lg border shadow p-4 w-full cursor-pointer group"
                 >
                   <div className="w-[80%] h-[100px] md:h-[250px] overflow-hidden mx-auto">
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain group-hover:scale-110 transition-all duration-300"
                     />
                   </div>
-                  <h3>{product.title}</h3>
+                  <div className="flex flex-col gap-6 mt-8">
+                    <button
+                      type="button"
+                      className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-3 px-8"
+                    >
+                      Buy now
+                    </button>
+                    <h3>{product.title}</h3>
+                  </div>
                 </div>
               );
             })}
