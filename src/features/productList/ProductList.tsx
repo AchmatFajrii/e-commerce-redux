@@ -21,6 +21,14 @@ const ProductList = () => {
     }
   };
 
+  const truncateString = (str: string, num: number) => {
+    if (str.length > num) {
+      return str.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -47,11 +55,14 @@ const ProductList = () => {
                   <div className="flex flex-col gap-6 mt-8">
                     <button
                       type="button"
-                      className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-3 px-8"
+                      className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-1 md:py-3 px-8"
                     >
                       Buy now
                     </button>
-                    <h3>{product.title}</h3>
+                    <h3 className="font-bold text-sm md:text-normal">
+                      {truncateString(product.title, 40)}
+                    </h3>
+                    <h3 className="text-sm md:text-normal">{product.price}</h3>
                   </div>
                 </div>
               );
