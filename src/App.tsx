@@ -6,7 +6,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <main className="max-w-7xl mx-auto px-4">
+      <main className="max-w-7xl mx-auto mt-32 lg: px-4">
         <ProductList />
       </main>
     </>

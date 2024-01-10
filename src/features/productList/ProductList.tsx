@@ -35,7 +35,7 @@ const ProductList = () => {
               return (
                 <div
                   key={product.id}
-                  className="bg-red-400 rounded-lg border shadow p-4"
+                  className="bg-white rounded-lg border shadow p-4"
                 >
                   <h3>{product.title}</h3>
                 </div>
