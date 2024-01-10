@@ -30,13 +30,20 @@ const ProductList = () => {
         <Loader />
       ) : (
         <>
-          <div className="w-full h-full grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="w-full h-full grid grid-cols-2 gap-4  lg:grid-cols-3">
             {products.map((product) => {
               return (
                 <div
                   key={product.id}
-                  className="bg-white rounded-lg border shadow p-4"
+                  className="bg-white rounded-lg border shadow p-4 w-full"
                 >
+                  <div className="w-[80%] h-[100px] md:h-[250px] overflow-hidden mx-auto">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                   <h3>{product.title}</h3>
                 </div>
               );
