@@ -2,10 +2,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Product } from "../../types/products";
+// import { Product } from "../../types/product";
 import Loader from "../../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../cart/cartSlice";
+
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+};
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
