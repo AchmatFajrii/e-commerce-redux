@@ -11,16 +11,47 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart: (state, action) => {
-      console.log("State", state);
-      console.log("Action", action.payload);
+      //state.cartItems = [...state.cartItems, action.payload]; contoh menggunakan spread operator
+      const newItem = action.payload;
+      const selectCartIndex = state.cartItems.findIndex(
+        (product) => product.id === newItem.id
+      );
+
+      if (selectCartIndex !== -1) {
+        state.cartItems[selectCartIndex].quantity += 1;
+
+        const totalPrice =
+          state.cartItems[selectCartIndex].quantity *
+          state.cartItems[selectCartIndex].price;
+        state.cartItems[selectCartIndex].totalPrice = totalPrice;
+      } else {
+        state.cartItems.push({
+          ...newItem,
+          quantity: 1,
+          totalPrice: newItem.price,
+        });
+      }
     },
-    removeItemFromCart: () => {
-      console.log("remove item to cart");
+    removeItemFromCart: (state, action) => {
+      const selectCartIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.id
+      );
+
+      if (state.cartItems[selectCartIndex]?.quantity > 1) {
+        state.cartItems[selectCartIndex].quantity -= 1;
+
+        const totalPrice =
+          state.cartItems[selectCartIndex].quantity *
+          state.cartItems[selectCartIndex].price;
+        state.cartItems[selectCartIndex].totalPrice = totalPrice;
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (product) => product.id !== action.payload.id
+        );
+      }
     },
   },
 });
 
-export const { addItemToCart } = cartSlice.actions;
-export const { removeItemFromCart } = cartSlice.actions;
-
+export const { addItemToCart, removeItemFromCart } = cartSlice.actions;
 export default cartSlice;

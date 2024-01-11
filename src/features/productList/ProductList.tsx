@@ -1,16 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Product } from "../../types/Products";
 import Loader from "../../components/Loader";
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "../cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart, removeItemFromCart } from "../cart/cartSlice";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
+  //   const { cartItems } = useSelector((state: any) => state.cart);
+
+  //   console.log("cart item", cartItems.length);
 
   const getProducts = async () => {
     setIsLoading(true);
@@ -35,6 +39,10 @@ const ProductList = () => {
 
   const handleClickBuy = (product: Product) => {
     dispatch(addItemToCart(product));
+  };
+
+  const handleClickRemove = (product: Product) => {
+    dispatch(removeItemFromCart(product));
   };
 
   useEffect(() => {
@@ -67,6 +75,13 @@ const ProductList = () => {
                       className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-1 md:py-3 px-8"
                     >
                       Buy now
+                    </button>
+                    <button
+                      onClick={() => handleClickRemove(product)}
+                      type="button"
+                      className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-1 md:py-3 px-8"
+                    >
+                      Remove
                     </button>
                     <h3 className="font-bold text-sm md:text-normal">
                       {truncateString(product.title, 40)}

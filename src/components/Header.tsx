@@ -1,5 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const [totalCartItems, setTotalCartItems] = useState(0);
+
+  const { cartItems } = useSelector((state: any) => state.cart);
+
+  useEffect(() => {
+    setTotalCartItems(cartItems.length);
+  }, [cartItems]);
   return (
     <>
       <header className="border-b shadow-md py-2 fixed top-0 left-0 right-0 z-50 bg-white">
@@ -13,9 +24,11 @@ const Header = () => {
               className="relative rounded-full bg-blue-800 p-2 text-gray-100"
             >
               <FaCartShopping />
-              <span className=" w-5 h-5 flex justify-center items-center bg-red-600 rounded-full text-white absolute -top-1 -right-3">
-                4
-              </span>
+              {totalCartItems === 0 ? null : (
+                <span className=" w-5 h-5 flex justify-center items-center bg-red-600 rounded-full text-white absolute -top-1 -right-3">
+                  {totalCartItems}
+                </span>
+              )}
             </button>
           </div>
         </div>
