@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Product } from "../../types/products";
 import Loader from "../../components/Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../cart/cartSlice";
 
 const ProductList = () => {
@@ -12,9 +12,9 @@ const ProductList = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-  //   const { cartItems } = useSelector((state: any) => state.cart);
+  const { cartItems } = useSelector((state: any) => state.cart);
 
-  //   console.log("cart item", cartItems.length);
+  console.log("cart item", cartItems);
 
   const getProducts = async () => {
     setIsLoading(true);
