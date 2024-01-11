@@ -3,10 +3,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Product } from "../../types/Products";
 import Loader from "../../components/Loader";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../cart/cartSlice";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const getProducts = async () => {
     setIsLoading(true);
@@ -29,6 +33,10 @@ const ProductList = () => {
     }
   };
 
+  const handleClickBuy = (product: Product) => {
+    dispatch(addItemToCart(product));
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -38,7 +46,7 @@ const ProductList = () => {
         <Loader />
       ) : (
         <>
-          <div className="w-full h-full grid grid-cols-2 gap-4  lg:grid-cols-3">
+          <div className="w-full h-full grid grid-cols-2 gap-4 py-4 lg:grid-cols-3">
             {products.map((product) => {
               return (
                 <div
@@ -54,6 +62,7 @@ const ProductList = () => {
                   </div>
                   <div className="flex flex-col gap-6 mt-8">
                     <button
+                      onClick={() => handleClickBuy(product)}
                       type="button"
                       className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-1 md:py-3 px-8"
                     >
