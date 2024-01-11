@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Product } from "../../types/Products";
+import { Product } from "../../types/products";
 import Loader from "../../components/Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../cart/cartSlice";
 
 const ProductList = () => {
@@ -48,6 +48,8 @@ const ProductList = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  console.log(products);
   return (
     <>
       {isLoading ? (
@@ -68,7 +70,7 @@ const ProductList = () => {
                       className="w-full h-full object-contain group-hover:scale-110 transition-all duration-300"
                     />
                   </div>
-                  <div className="flex flex-col gap-6 mt-8">
+                  <div className="flex flex-col gap-2 mt-8">
                     <button
                       onClick={() => handleClickBuy(product)}
                       type="button"
