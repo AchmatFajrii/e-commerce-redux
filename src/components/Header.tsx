@@ -19,8 +19,6 @@ const Header = ({ handleOpenModalCart }: HeaderProps) => {
     )
   );
 
-  console.log("selectCartTotalItems", selectCartTotalItems);
-
   // useEffect(() => {
   //   setTotalCartItems(cartItems.length);
   // }, [cartItems]);

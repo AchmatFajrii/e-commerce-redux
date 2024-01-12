@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 // import { Product } from "../../types/product";
 import Loader from "../../components/Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../cart/cartSlice";
 
 type Product = {
@@ -22,12 +22,12 @@ type Product = {
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [productsInCart, setProductsInCart] = useState<{
+    [key: number]: boolean;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const { cartItems } = useSelector((state: any) => state.cart);
-
-  console.log("cart item", cartItems);
 
   const getProducts = async () => {
     setIsLoading(true);
@@ -50,8 +50,14 @@ const ProductList = () => {
     }
   };
 
-  const handleClickBuy = (product: Product) => {
-    dispatch(addItemToCart(product));
+  const handleClickAddCart = (product: Product) => {
+    if (productsInCart[product.id]) {
+      handleClickRemove(product);
+      setProductsInCart((prev) => ({ ...prev, [product.id]: false }));
+    } else {
+      dispatch(addItemToCart(product));
+      setProductsInCart((prev) => ({ ...prev, [product.id]: true }));
+    }
   };
 
   const handleClickRemove = (product: Product) => {
@@ -84,19 +90,25 @@ const ProductList = () => {
                   </div>
                   <div className="flex flex-col gap-2 mt-8">
                     <button
-                      onClick={() => handleClickBuy(product)}
+                      onClick={() => handleClickAddCart(product)}
                       type="button"
-                      className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-1 md:py-3 px-8"
+                      className={`${
+                        productsInCart[product.id]
+                          ? "bg-white border border-red-600 text-red-600"
+                          : "bg-blue-600 hover:bg-blue-700"
+                      } text-white font-bold rounded-lg h-12 transition-all duration-300 text-[12px] md:text-sm py-1 md:py-3 px-4 md:px-8`}
                     >
-                      Buy now
+                      {productsInCart[product.id]
+                        ? "Hapus dari keranjang"
+                        : "+ Keranjang"}
                     </button>
-                    <button
+                    {/* <button
                       onClick={() => handleClickRemove(product)}
                       type="button"
                       className="bg-blue-800 text-white rounded-lg hover:bg-blue-900 text-sm py-1 md:py-3 px-8"
                     >
                       Remove
-                    </button>
+                    </button> */}
                     <h3 className="font-bold text-sm md:text-normal">
                       {truncateString(product.title, 40)}
                     </h3>
