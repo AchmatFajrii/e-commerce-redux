@@ -62,7 +62,6 @@ const ProductList = () => {
     getProducts();
   }, []);
 
-  console.log(products);
   return (
     <>
       {isLoading ? (
