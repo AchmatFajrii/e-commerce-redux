@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "../../components/Modal";
-import { addItemToCart, removeItemFromCart } from "./cartSlice";
+import { addItemToCart, removeQuantityItemFromCart } from "./cartSlice";
 
 type CartModalProps = {
   handleCloseModalCart: () => void;
@@ -42,7 +42,7 @@ const CartModal = ({ handleCloseModalCart }: CartModalProps) => {
   };
 
   const handleRemoveItemFromCart = (product: any) => {
-    dispatch(removeItemFromCart(product));
+    dispatch(removeQuantityItemFromCart(product));
   };
 
   return (

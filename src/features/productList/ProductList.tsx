@@ -94,7 +94,7 @@ const ProductList = () => {
                       type="button"
                       className={`${
                         productsInCart[product.id]
-                          ? "bg-white border border-red-600 text-red-600"
+                          ? "bg-white border border-red-600 text-red-500"
                           : "bg-blue-600 hover:bg-blue-700"
                       } text-white font-bold rounded-lg h-12 transition-all duration-300 text-[12px] md:text-sm py-1 md:py-3 px-4 md:px-8`}
                     >

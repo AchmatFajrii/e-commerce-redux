@@ -10,14 +10,14 @@ type HeaderProps = {
 const Header = ({ handleOpenModalCart }: HeaderProps) => {
   // const [totalCartItems, setTotalCartItems] = useState(0);
 
-  // const { cartItems } = useSelector((state: any) => state.cart);
+  const { cartItems } = useSelector((state: any) => state.cart);
 
-  const selectCartTotalItems = useSelector((state: any) =>
-    state.cart.cartItems.reduce(
-      (total: number, item: any) => total + item.quantity,
-      0
-    )
-  );
+  // const selectCartTotalItems = useSelector((state: any) =>
+  //   state.cart.cartItems.reduce(
+  //     (total: number, item: any) => total + item.quantity,
+  //     0
+  //   )
+  // );
 
   // useEffect(() => {
   //   setTotalCartItems(cartItems.length);
@@ -36,9 +36,9 @@ const Header = ({ handleOpenModalCart }: HeaderProps) => {
               className="relative rounded-full bg-blue-800 p-2 text-gray-100"
             >
               <FaCartShopping />
-              {selectCartTotalItems === 0 ? null : (
+              {cartItems.length === 0 ? null : (
                 <span className=" w-5 h-5 flex justify-center items-center bg-red-600 rounded-full text-white absolute -top-1 -right-3">
-                  {selectCartTotalItems}
+                  {cartItems.length}
                 </span>
               )}
             </button>
